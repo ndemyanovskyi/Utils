@@ -15,8 +15,8 @@ public interface BiConverter<F, T> extends Converter<F, T> {
     
     public F from(T value);
     
-    public static <T> BiConverter<String, T> of(Converter<String, T> to) {
-        return of(to, Object::toString);
+    public static <T> BiConverter<T, String> of(Converter<String, T> to) {
+        return of(Object::toString, to);
     }
     
     public static <F, T> BiConverter<F, T> of(Converter<F, T> to, Converter<T, F> from) {
