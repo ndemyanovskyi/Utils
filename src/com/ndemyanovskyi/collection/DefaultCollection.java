@@ -60,11 +60,6 @@ public interface DefaultCollection<E> extends Collection<E> {
     }
 
     @Override
-    public default boolean add(E e) {
-	throw new UnsupportedOperationException();
-    }
-
-    @Override
     public default boolean remove(Object o) {
 	Iterator<E> it = iterator();
 	if (o == null) {

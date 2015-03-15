@@ -20,7 +20,7 @@ public class Pair<T1, T2> {
         set(first, second);
     }
     
-    public Pair set(T1 first, T2 second) {
+    public Pair<T1, T2> set(T1 first, T2 second) {
         setFirst(first);
 	setSecond(second);
         return this;

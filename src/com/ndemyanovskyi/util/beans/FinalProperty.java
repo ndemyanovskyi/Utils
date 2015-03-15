@@ -6,14 +6,14 @@
 package com.ndemyanovskyi.util.beans;
 
 import javafx.beans.InvalidationListener;
-import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ChangeListener;
 
 /**
  *
  * @author Назарій
  */
-public class FinalProperty<T> implements ReadOnlyProperty<T> {
+public class FinalProperty<T> extends ReadOnlyObjectProperty<T> {
     
     private final T value;
     private final String name;
@@ -30,7 +30,7 @@ public class FinalProperty<T> implements ReadOnlyProperty<T> {
     }
 
     @Override
-    public T getValue() {
+    public T get() {
         return value;
     }
 

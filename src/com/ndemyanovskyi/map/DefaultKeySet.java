@@ -31,4 +31,9 @@ public class DefaultKeySet<T> implements DefaultSet<T> {
 	return Iterators.converted(base.iterator(), e -> e.getKey());
     }
 
+    @Override
+    public boolean add(T e) {
+        throw new UnsupportedOperationException("add");
+    }
+
 }

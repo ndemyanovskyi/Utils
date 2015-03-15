@@ -8,6 +8,7 @@ package com.ndemyanovskyi.util;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  *
@@ -238,6 +239,132 @@ public class Compare {
             min = min(min, value);
         }
         return min;
+    }
+    
+    public static <F, T extends Comparable<? super T>> T min(Function<F, T> extractor, Collection<? extends F> values) {
+        Objects.requireNonNull(extractor, "extractor");
+        Objects.requireNonNull(values, "values");
+        
+        Iterator<? extends F> it = values.iterator();
+        
+        if(!it.hasNext()) {
+            throw new IllegalArgumentException("values.size() == 0");
+        }
+        
+        T min = extractor.apply(it.next());
+        while(it.hasNext()) {
+            min = min(min, extractor.apply(it.next()));
+        }
+        return min;
+    }
+    
+    public static <F, T extends Comparable<? super T>> T max(Function<F, T> extractor, Collection<? extends F> values) {
+        Objects.requireNonNull(extractor, "extractor");
+        Objects.requireNonNull(values, "values");
+        
+        Iterator<? extends F> it = values.iterator();
+        
+        if(!it.hasNext()) {
+            throw new IllegalArgumentException("values.size() == 0");
+        }
+        
+        T max = extractor.apply(it.next());
+        while(it.hasNext()) {
+            max = max(max, extractor.apply(it.next()));
+        }
+        return max;
+    }
+    
+    public static <T extends Comparable<? super T>> T max(Collection<T> values) {
+        Objects.requireNonNull(values, "values");
+        
+        Iterator<T> it = values.iterator();
+        
+        if(!it.hasNext()) {
+            throw new IllegalArgumentException("values.size() == 0");
+        }
+        
+        T max = it.next();
+        while(it.hasNext()) {
+            max = max(max, it.next());
+        }
+        return max;
+    }
+    
+    public static <T extends Comparable<? super T>> T min(Collection<T> values) {
+        Objects.requireNonNull(values, "values");
+        
+        Iterator<T> it = values.iterator();
+        
+        if(!it.hasNext()) {
+            throw new IllegalArgumentException("values.size() == 0");
+        }
+        
+        T min = it.next();
+        while(it.hasNext()) {
+            min = min(min, it.next());
+        }
+        return min;
+    }
+    
+    public static <F, T extends Comparable<? super T>> T min(Function<F, T> extractor, F a, F b, F... others) {
+        Objects.requireNonNull(extractor, "extractor");
+        Objects.requireNonNull(others, "others");
+        
+        T min = min(extractor.apply(a), extractor.apply(b));
+        for(F value : others) {
+            min = min(min, extractor.apply(value));
+        }
+        return min;
+    }
+    
+    public static <F, T extends Comparable<? super T>> T max(Function<F, T> extractor, F a, F b, F... others) {
+        Objects.requireNonNull(extractor, "extractor");
+        Objects.requireNonNull(others, "others");
+        
+        T max = max(extractor.apply(a), extractor.apply(b));
+        for(F value : others) {
+            max = max(max, extractor.apply(value));
+        }
+        return max;
+    }
+    
+    public static <F, T extends Comparable<? super T>> T max(Function<F, T> extractor, F a, F b) {
+        Objects.requireNonNull(extractor, "extractor");
+        return max(extractor.apply(a), extractor.apply(b));
+    }
+    
+    public static <F, T extends Comparable<? super T>> T min(Function<F, T> extractor, F a, F b) {
+        Objects.requireNonNull(extractor, "extractor");
+        return min(extractor.apply(a), extractor.apply(b));
+    }
+    
+    public static <F, T extends Comparable<? super T>> T min(Function<F, T> extractor, F[] values) {
+        Objects.requireNonNull(extractor, "extractor");
+        Objects.requireNonNull(values, "values");
+        if(values.length == 0) {
+            throw new IllegalArgumentException("values.length == 0");
+        }
+        
+        T min = extractor.apply(values[0]);
+        for(F value : values) {
+            min = min(min, extractor.apply(value));
+        }
+        return min;
+    }
+    
+    public static <F, T extends Comparable<? super T>> T max(Function<F, T> extractor, F[] values) {
+        Objects.requireNonNull(extractor, "extractor");
+        Objects.requireNonNull(values, "values");
+        if(values.length == 0) {
+            throw new IllegalArgumentException("values.length == 0");
+        }
+        
+        T max = extractor.apply(values[0]);
+        for(F value : values) {
+            max = max(max, extractor.apply(value));
+        }
+        return max;
     }
     
 }

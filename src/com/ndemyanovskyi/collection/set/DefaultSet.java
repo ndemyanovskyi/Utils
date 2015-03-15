@@ -28,11 +28,6 @@ public interface DefaultSet<E> extends DefaultCollection<E>, Set<E> {
     }
 
     @Override
-    default public boolean add(E e) {
-	return DefaultCollection.super.add(e);
-    }
-
-    @Override
     public default boolean isEmpty() {
 	return DefaultCollection.super.isEmpty();
     }

@@ -30,5 +30,10 @@ public class DefaultValuesCollection<T> implements DefaultCollection<T> {
     public Iterator<T> iterator() {
 	return Iterators.converted(base.iterator(), e -> e.getValue());
     }
+
+    @Override
+    public boolean add(T e) {
+        throw new UnsupportedOperationException("add");
+    }
     
 }
