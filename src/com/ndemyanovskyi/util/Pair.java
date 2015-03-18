@@ -5,6 +5,9 @@
  */
 package com.ndemyanovskyi.util;
 
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+
 /**
  *
  * @author nazar_000
@@ -45,6 +48,22 @@ public class Pair<T1, T2> {
 
     public T2 getSecond() {
 	return second;
+    }
+    
+    public void ifPresent(BiConsumer<? super T1, ? super T2> action) {
+        T1 f = first;
+        T2 s = second;
+        if(f != null && s != null) action.accept(f, s);
+    }
+    
+    public void ifFirstPresent(Consumer<? super T1> action) {
+        T1 f = first;
+        if(f != null) action.accept(f);
+    }
+    
+    public void ifSecondPresent(Consumer<? super T2> action) {
+        T2 s = second;
+        if(s != null) action.accept(s);
     }
     
 }

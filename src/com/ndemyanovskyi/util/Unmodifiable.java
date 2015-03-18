@@ -17,9 +17,11 @@ import com.ndemyanovskyi.map.HashPool;
 import com.ndemyanovskyi.map.Pool;
 import com.ndemyanovskyi.map.unmodifiable.UnmodifiableMap;
 import com.ndemyanovskyi.map.unmodifiable.UnmodifiablePool;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -54,6 +56,20 @@ public interface Unmodifiable {
         Set<T> set = new HashSet<>();
         for(T t : array) {
             set.add(t);
+        }
+        return new UnmodifiableSet<>(set);
+    }
+
+    public static <T> Set<T> set(Iterable<T> iterable) {
+        Iterator<T> it = iterable.iterator();
+        
+        if(!it.hasNext()) {
+            return set();
+        }
+
+        Set<T> set = new HashSet<>();
+        while(it.hasNext()) {
+            set.add(it.next());
         }
         return new UnmodifiableSet<>(set);
     }
@@ -105,6 +121,20 @@ public interface Unmodifiable {
         return array.length > 0 
                 ? new UnmodifiableList<>(Arrays.asList(array)) 
                 : list();
+    }
+
+    public static <T> List<T> list(Iterable<T> iterable) {
+        Iterator<T> it = iterable.iterator();
+        
+        if(!it.hasNext()) {
+            return list();
+        }
+
+        List<T> list = new ArrayList<>();
+        while(it.hasNext()) {
+            list.add(it.next());
+        }
+        return list(list);
     }
     //</editor-fold>
 
@@ -172,7 +202,69 @@ public interface Unmodifiable {
     }
 
     public static <K, V> Map<K, V> map(Map<K, V> map) {
-        return Collections.unmodifiableMap(map);
+        return new UnmodifiableMap<>(map);
+    }
+
+    /**
+     * Returns a map of keys and values taken from the array as pairs. 
+     * For example array: [1, "one", 2, "two", 3, "three"] 
+     * converted to this map: [[1, "one"], [2, "two"], [3, three]].
+     * All elements with <b>even index</b> are appended as <b>keys</b>.
+     * All elements with <b>odd index</b> are appended as <b>values</b>.
+     * @param elements array of key(K) and value(V) objects that are placed there by turns. For example: [K, V, K, V, ... , K, V]
+     * @return map contained keys and values from array.
+     */
+    public static Map<?, ?> map(Object... elements) {
+        return map(Object.class, Object.class, elements);
+    }
+
+    /**
+     * Returns a map of keys and values taken from the array as pairs. 
+     * For example array: [1, "one", 2, "two", 3, "three"] 
+     * converted to this map: [[1, "one"], [2, "two"], [3, three]].
+     * All elements with <b>even index</b> are appended as <b>keys</b>.
+     * All elements with <b>odd index</b> are appended as <b>values</b>.
+     * @param <K> key type
+     * @param keyType class of K
+     * @param elements array of key(K) and value(V) objects that are placed there by turns. For example: [K, V, K, V, ... , K, V]
+     * @return map contained keys and values from array.
+     */
+    public static <K> Map<K, ?> map(Class<K> keyType, Object... elements) {
+        return map(keyType, Object.class, elements);
+    }
+
+    /**
+     * Returns a map of keys and values taken from the array as pairs. 
+     * For example array: [1, "one", 2, "two", 3, "three"] 
+     * converted to this map: [[1, "one"], [2, "two"], [3, three]]. 
+     * All elements with <b>even index</b> are appended as <b>keys</b>.
+     * All elements with <b>odd index</b> are appended as <b>values</b>.
+     * @param <K> key type
+     * @param <V> value type
+     * @param keyType class of K
+     * @param valueType class of V
+     * @param elements array of key(K) and value(V) objects that are placed there by turns. For example: [K, V, K, V, ... , K, V]
+     * @return map contained keys and values from array.
+     */
+    public static <K, V> Map<K, V> map(Class<K> keyType, Class<V> valueType, Object... elements) {
+        Map<K, V> map = new HashMap<>();
+        for(int i = 0; i < elements.length; i+=2) {
+            Object key = elements[i];
+            if(key != null && !keyType.isInstance(key)) {
+                throw new IllegalArgumentException(String.format(
+                        "The element with event index(%d) is not an instance of %s.", 
+                        i, keyType.getSimpleName()));
+            }
+            
+            Object value = i + 1 < elements.length ? elements[i + 1] : null;
+            if(value != null && !valueType.isInstance(value)) {
+                throw new IllegalArgumentException(String.format(
+                        "The element with odd index(%d) is not an instance of %s.", 
+                        i, valueType.getSimpleName()));
+            }
+            map.put((K) key, (V) value);
+        }
+        return map(map);
     }
     //</editor-fold>
 

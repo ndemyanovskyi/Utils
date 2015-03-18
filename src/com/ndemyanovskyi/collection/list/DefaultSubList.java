@@ -20,8 +20,8 @@ public class DefaultSubList<E> implements DefaultList<E> {
     
     public DefaultSubList(List<E> base, int fromInclusive, int toExclusive) {
 	this.base = Objects.requireNonNull(base);
-	this.offset = Integers.requireInBounds(fromInclusive, base);
-	Integers.requireInBounds(toExclusive, base);
+	this.offset = Integers.requireInRange(fromInclusive, base);
+	Integers.requireInRange(toExclusive, base);
 	
 	size = toExclusive - fromInclusive;
     }

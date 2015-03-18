@@ -7,6 +7,7 @@ package com.ndemyanovskyi.collection.list;
 
 import com.ndemyanovskyi.collection.DefaultCollection;
 import com.ndemyanovskyi.listiterator.ListIterators;
+import com.ndemyanovskyi.util.number.Numbers.Integers;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -88,10 +89,26 @@ public interface DefaultList<E> extends DefaultCollection<E>, List<E> {
 
     @Override
     default public int indexOf(Object o) {
-        ListIterator<E> it = listIterator();
-        while (it.hasNext()) {
-            if (Objects.equals(it.next(), o)) {
-                return it.previousIndex();
+        return indexOf(o, 0);
+    }
+
+    default public int indexOf(Object o, int fromInclusive) {
+        return indexOf(o, fromInclusive, size());
+    }
+
+    default public int indexOf(Object o, int fromInclusive, int toExclusive) {
+        Integers.requireInRange(fromInclusive, this, "fromInclusive");
+        Integers.requireInRangeExclusive(toExclusive, this, "toExclusive");
+        
+        if(isEmpty()) return -1;
+        
+        ListIterator<E> it = listIterator(fromInclusive);
+        while(it.hasNext()) {
+            E next = it.next();
+            int index = it.previousIndex();
+            if(index >= toExclusive) break;
+            if(Objects.equals(next, o)) {
+                return index;
             }
         }
         return -1;
@@ -99,10 +116,26 @@ public interface DefaultList<E> extends DefaultCollection<E>, List<E> {
 
     @Override
     default public int lastIndexOf(Object o) {
-        ListIterator<E> it = listIterator(size());
-        while (it.hasPrevious()) {
-            if (Objects.equals(it.previous(), o)) {
-                return it.nextIndex();
+        return lastIndexOf(o, size());
+    }
+
+    default public int lastIndexOf(Object o, int toExclusive) {
+        return lastIndexOf(o, 0, toExclusive);
+    }
+
+    default public int lastIndexOf(Object o, int fromInclusive, int toExclusive) {
+        Integers.requireInRange(fromInclusive, this, "fromInclusive");
+        Integers.requireInRangeExclusive(toExclusive, this, "toExclusive");
+        
+        if(isEmpty()) return -1;
+        
+        ListIterator<E> it = listIterator(toExclusive);
+        while(it.hasPrevious()) {
+            E previous = it.previous();
+            int index = it.previousIndex();
+            if(index < fromInclusive) break;
+            if(Objects.equals(previous, o)) {
+                return index;
             }
         }
         return -1;

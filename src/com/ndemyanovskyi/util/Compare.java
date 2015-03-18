@@ -24,7 +24,7 @@ public class Compare {
         if(a == null && b == null) return 0;
         if(a == null) return -1;
         if(b == null) return 1;
-        return a.compareTo(b);
+        return compare(a, b);
     }
     
     public static <T extends Comparable<? super T>> T max(T a, T b) {
@@ -365,6 +365,30 @@ public class Compare {
             max = max(max, extractor.apply(value));
         }
         return max;
+    }
+    
+    public static int max(int a, int b) {
+        return a > b ? a : b;
+    }
+    
+    public static long max(long a, long b) {
+        return a > b ? a : b;
+    }
+    
+    public static float max(float a, float b) {
+        return a > b ? a : b;
+    }
+    
+    public static double max(double a, double b) {
+        return a > b ? a : b;
+    }
+    
+    public static byte max(byte a, byte b) {
+        return a > b ? a : b;
+    }
+    
+    public static short max(short a, short b) {
+        return a > b ? a : b;
     }
     
 }

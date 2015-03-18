@@ -6,17 +6,11 @@
 
 package com.ndemyanovskyi.util;
 
-import java.util.function.Function;
-
 
 @FunctionalInterface
 public interface Converter<F, T> {
     
     public T to(F value);
-    
-    public static <F, T> Converter<F, T> of(Function<F, T> func) {
-        return v -> func.apply(v);
-    }
     
     public static <T> Converter<T, T> identity() {
         return v -> v;

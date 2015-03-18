@@ -151,37 +151,49 @@ public final class Numbers {
         }
         //</editor-fold>
 
-        //<editor-fold defaultstate="collapsed" desc="requireInBounds">
-        public static int requireInBounds(int index, int from, int to) {
-            return requireInBounds(index, from, to, "index");
+        //<editor-fold defaultstate="collapsed" desc="requireInRange">
+        public static int requireInRange(int index, int from, int to) {
+            return requireInRange(index, from, to, "index");
         }
         
-        public static int requireInBounds(int index, int from, int to, String name) {
+        public static int requireInRange(int index, int from, int to, String name) {
             if (index < from || index > to) {
                 throw new IndexOutOfBoundsException(
-                        name + " = " + index + "; bounds = [" + from + "; " + to + "]");
+                        name + " = " + index + "; range = [" + from + "; " + to + "]");
             }
             return index;
         }
         
-        public static int requireInBounds(int index, int from, int to, Supplier<String> name) {
+        public static int requireInRange(int index, int from, int to, Supplier<String> name) {
             if (index < from || index > to) {
                 throw new IndexOutOfBoundsException(
-                        name.get() + " = " + index + "; bounds = [" + from + "; " + to + "]");
+                        name.get() + " = " + index + "; range = [" + from + "; " + to + "]");
             }
             return index;
         }
         
-        public static int requireInBounds(int index, Collection<?> c) {
-            return requireInBounds(index, 0, c.size() - 1);
+        public static int requireInRange(int index, Collection<?> c) {
+            return requireInRange(index, 0, c.size() - 1);
         }
         
-        public static int requireInBounds(int index, Collection<?> c, String name) {
-            return requireInBounds(index, 0, c.size() - 1, name);
+        public static int requireInRange(int index, Collection<?> c, String name) {
+            return requireInRange(index, 0, c.size() - 1, name);
         }
         
-        public static int requireInBounds(int index, Collection<?> c, Supplier<String> name) {
-            return requireInBounds(index, 0, c.size() - 1, name);
+        public static int requireInRange(int index, Collection<?> c, Supplier<String> name) {
+            return requireInRange(index, 0, c.size() - 1, name);
+        }
+        
+        public static int requireInRangeExclusive(int index, Collection<?> c) {
+            return requireInRange(index, 0, c.size());
+        }
+        
+        public static int requireInRangeExclusive(int index, Collection<?> c, String name) {
+            return requireInRange(index, 0, c.size(), name);
+        }
+        
+        public static int requireInRangeExclusive(int index, Collection<?> c, Supplier<String> name) {
+            return requireInRange(index, 0, c.size(), name);
         }
         //</editor-fold>
 
@@ -257,23 +269,23 @@ public final class Numbers {
         }
         //</editor-fold>
 
-        //<editor-fold defaultstate="collapsed" desc="requireInBounds">
-        public static long requireInBounds(long index, long from, long to) {
-            return requireInBounds(index, from, to, "index");
+        //<editor-fold defaultstate="collapsed" desc="requireInRange">
+        public static long requireInRange(long index, long from, long to) {
+            return requireInRange(index, from, to, "index");
         }
         
-        public static long requireInBounds(long index, long from, long to, String name) {
+        public static long requireInRange(long index, long from, long to, String name) {
             if (index < from || index > to) {
                 throw new IndexOutOfBoundsException(
-                        name + " = " + index + "; bounds = [" + from + "; " + to + "]");
+                        name + " = " + index + "; range = [" + from + "; " + to + "]");
             }
             return index;
         }
         
-        public static long requireInBounds(long index, long from, long to, Supplier<String> name) {
+        public static long requireInRange(long index, long from, long to, Supplier<String> name) {
             if (index < from || index > to) {
                 throw new IndexOutOfBoundsException(
-                        name.get() + " = " + index + "; bounds = [" + from + "; " + to + "]");
+                        name.get() + " = " + index + "; range = [" + from + "; " + to + "]");
             }
             return index;
         }
@@ -351,23 +363,23 @@ public final class Numbers {
         }
         //</editor-fold>
 
-        //<editor-fold defaultstate="collapsed" desc="requireInBounds">
-        public static long requireInBounds(long index, long from, long to) {
-            return requireInBounds(index, from, to, "index");
+        //<editor-fold defaultstate="collapsed" desc="requireInRange">
+        public static long requireInRange(long index, long from, long to) {
+            return requireInRange(index, from, to, "index");
         }
         
-        public static long requireInBounds(long index, long from, long to, String name) {
+        public static long requireInRange(long index, long from, long to, String name) {
             if (index < from || index > to) {
                 throw new IndexOutOfBoundsException(
-                        name + " = " + index + "; bounds = [" + from + "; " + to + "]");
+                        name + " = " + index + "; range = [" + from + "; " + to + "]");
             }
             return index;
         }
         
-        public static long requireInBounds(long index, long from, long to, Supplier<String> name) {
+        public static long requireInRange(long index, long from, long to, Supplier<String> name) {
             if (index < from || index > to) {
                 throw new IndexOutOfBoundsException(
-                        name.get() + " = " + index + "; bounds = [" + from + "; " + to + "]");
+                        name.get() + " = " + index + "; range = [" + from + "; " + to + "]");
             }
             return index;
         }
@@ -445,23 +457,23 @@ public final class Numbers {
         }
         //</editor-fold>
 
-        //<editor-fold defaultstate="collapsed" desc="requireInBounds">
-        public static long requireInBounds(long index, long from, long to) {
-            return requireInBounds(index, from, to, "index");
+        //<editor-fold defaultstate="collapsed" desc="requireInRange">
+        public static double requireInRange(double index, double from, double to) {
+            return requireInRange(index, from, to, "index");
         }
         
-        public static long requireInBounds(long index, long from, long to, String name) {
+        public static double requireInRange(double index, double from, double to, String name) {
             if (index < from || index > to) {
                 throw new IndexOutOfBoundsException(
-                        name + " = " + index + "; bounds = [" + from + "; " + to + "]");
+                        name + " = " + index + "; range = [" + from + "; " + to + "]");
             }
             return index;
         }
         
-        public static long requireInBounds(long index, long from, long to, Supplier<String> name) {
+        public static double requireInRange(double index, double from, double to, Supplier<String> name) {
             if (index < from || index > to) {
                 throw new IndexOutOfBoundsException(
-                        name.get() + " = " + index + "; bounds = [" + from + "; " + to + "]");
+                        name.get() + " = " + index + "; range = [" + from + "; " + to + "]");
             }
             return index;
         }
@@ -539,23 +551,23 @@ public final class Numbers {
         }
         //</editor-fold>
 
-        //<editor-fold defaultstate="collapsed" desc="requireInBounds">
-        public static short requireInBounds(short index, short from, short to) {
-            return requireInBounds(index, from, to, "index");
+        //<editor-fold defaultstate="collapsed" desc="requireInRange">
+        public static short requireInRange(short index, short from, short to) {
+            return requireInRange(index, from, to, "index");
         }
         
-        public static short requireInBounds(short index, short from, short to, String name) {
+        public static short requireInRange(short index, short from, short to, String name) {
             if (index < from || index > to) {
                 throw new IndexOutOfBoundsException(
-                        name + " = " + index + "; bounds = [" + from + "; " + to + "]");
+                        name + " = " + index + "; range = [" + from + "; " + to + "]");
             }
             return index;
         }
         
-        public static short requireInBounds(short index, short from, short to, Supplier<String> name) {
+        public static short requireInRange(short index, short from, short to, Supplier<String> name) {
             if (index < from || index > to) {
                 throw new IndexOutOfBoundsException(
-                        name.get() + " = " + index + "; bounds = [" + from + "; " + to + "]");
+                        name.get() + " = " + index + "; range = [" + from + "; " + to + "]");
             }
             return index;
         }
@@ -633,23 +645,23 @@ public final class Numbers {
         }
         //</editor-fold>
 
-        //<editor-fold defaultstate="collapsed" desc="requireInBounds">
-        public static byte requireInBounds(byte index, byte from, byte to) {
-            return requireInBounds(index, from, to, "index");
+        //<editor-fold defaultstate="collapsed" desc="requireInRange">
+        public static byte requireInRange(byte index, byte from, byte to) {
+            return requireInRange(index, from, to, "index");
         }
         
-        public static byte requireInBounds(byte index, byte from, byte to, String name) {
+        public static byte requireInRange(byte index, byte from, byte to, String name) {
             if (index < from || index > to) {
                 throw new IndexOutOfBoundsException(
-                        name + " = " + index + "; bounds = [" + from + "; " + to + "]");
+                        name + " = " + index + "; range = [" + from + "; " + to + "]");
             }
             return index;
         }
         
-        public static byte requireInBounds(byte index, byte from, byte to, Supplier<String> name) {
+        public static byte requireInRange(byte index, byte from, byte to, Supplier<String> name) {
             if (index < from || index > to) {
                 throw new IndexOutOfBoundsException(
-                        name.get() + " = " + index + "; bounds = [" + from + "; " + to + "]");
+                        name.get() + " = " + index + "; range = [" + from + "; " + to + "]");
             }
             return index;
         }
